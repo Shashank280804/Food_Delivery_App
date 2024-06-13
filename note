@@ -1,0 +1,1 @@
+For deployement change  //const frontend_url = "http://localhost:5173"; here add url of deployment link from netlify
