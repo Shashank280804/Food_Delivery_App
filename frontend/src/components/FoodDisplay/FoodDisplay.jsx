@@ -1,7 +1,7 @@
 import './FoodDisplay.css';
 import { StoreContext } from '../../context/StoreContext';
 import { useContext } from 'react';
-import PropTypes from 'prop-types'; // Import PropTypes
+import PropTypes from 'prop-types'; 
 import FoodItem from '../FoodItem/FoodItem';
 
 
@@ -24,7 +24,7 @@ const FoodDisplay = ({ category }) => {
 };
 
 FoodDisplay.propTypes = {
-    category: PropTypes.string.isRequired, // Validate category prop
+    category: PropTypes.string.isRequired, 
 };
 
 export default FoodDisplay;

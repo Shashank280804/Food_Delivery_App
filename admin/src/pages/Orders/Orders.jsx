@@ -1,46 +1,57 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import "./Orders.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { assets, url } from "../../assets/assets";
 
-
 const Orders = () => {
   const [orders, setOrders] = useState([]);
 
-  const fetchAllOrders = async ({ url }) => {
-    const response = await axios.get(url + "/api/order/list");
-    if (response.data.success) {
-      setOrders(response.data.data);
-      console.log(response.data.data);
-    } else {
-      toast.error("Error");
+  const fetchAllOrders = async () => {
+    try {
+      const response = await axios.get(url + "/api/order/list");
+      if (response.data.success) {
+        setOrders(response.data.data);
+        console.log(response.data.data);
+      } else {
+        toast.error("Error fetching orders");
+      }
+    } catch (error) {
+      toast.error("Error fetching orders");
     }
   };
 
   const statusHandler = async (event, orderId) => {
-    const response = await axios.post(url + "/api/order/status", {
-      orderId,
-      status: event.target.value,
-    });
-    if (response.data.success) {
-      await fetchAllOrders();
+    try {
+      const response = await axios.post(url + "/api/order/status", {
+        orderId,
+        status: event.target.value,
+      });
+      if (response.data.success) {
+        await fetchAllOrders();
+      } else {
+        toast.error("Error updating order status");
+      }
+    } catch (error) {
+      toast.error("Error updating order status");
     }
   };
+
   useEffect(() => {
     fetchAllOrders();
   }, []);
+
   return (
     <div className="order add">
       <h3>Order Page</h3>
       <div className="order-list">
-        {orders.map((order, index) => {
+        {orders.map((order, index) => (
           <div key={index} className="order-item">
-            <img src={assets.parcel_icon} alt="" />
+            <img src={assets.parcel_icon} alt="Parcel Icon" />
             <div>
-              <p className="order-iten-food">
-                {order.items.map((item, index) => {
-                  if (index === order.items.length - 1) {
+              <p className="order-item-food">
+                {order.items.map((item, itemIndex) => {
+                  if (itemIndex === order.items.length - 1) {
                     return item.name + " x " + item.quantity;
                   } else {
                     return item.name + " x " + item.quantity + " , ";
@@ -64,7 +75,7 @@ const Orders = () => {
               </div>
               <p className="order-item-phone">{order.address.phone}</p>
             </div>
-            <p>Items:{order.items.length}</p>
+            <p>Items: {order.items.length}</p>
             <p>${order.amount}</p>
             <select
               onChange={(event) => statusHandler(event, order._id)}
@@ -74,8 +85,8 @@ const Orders = () => {
               <option value="Out For Delivery">Out For Delivery</option>
               <option value="Delivered">Delivered</option>
             </select>
-          </div>;
-        })}
+          </div>
+        ))}
       </div>
     </div>
   );

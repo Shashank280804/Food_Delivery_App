@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import "./Add.css";
 import { assets } from "../../assets/assets";
 import axios from "axios";
@@ -59,7 +59,7 @@ const Add = ({url}) => {
             onChange={(e) => setImage(e.target.files[0])}
             type="file"
             id="image"
-            name="image" /* Added name attribute */
+            name="image"
             hidden
             required
           />
@@ -72,7 +72,7 @@ const Add = ({url}) => {
             type="text"
             name="name"
             placeholder="Type"
-            required /* Ensure this field is required */
+            required 
           />
         </div>
         <div className="add-product-description flex-col">
@@ -83,7 +83,7 @@ const Add = ({url}) => {
             name="description"
             id="6"
             placeholder="Write content here"
-            required /* Ensure this field is required */
+            required 
           />
         </div>
         <div className="add-category-price">
@@ -92,8 +92,8 @@ const Add = ({url}) => {
             <select
               onChange={onChangeHandler}
               name="category"
-              value={data.category} /* Ensure the select value is controlled */
-              required /* Ensure this field is required */
+              value={data.category} 
+              required 
             >
               <option value="Salad">Salad</option>
               <option value="Rolls">Rolls</option>
@@ -113,7 +113,7 @@ const Add = ({url}) => {
               type="number"
               name="price"
               placeholder="$20"
-              required /* Ensure this field is required */
+              required 
             />
           </div>
         </div>
